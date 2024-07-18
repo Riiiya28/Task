@@ -1,38 +1,158 @@
-.App {
-  text-align: center;
+/* src/components/About.css */
+h1 {
+  color: #333;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+p {
+  font-size: 1.1em;
+  line-height: 1.6;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* src/components/AllQueries.css */
+ul {
+  list-style-type: none;
+  padding-left: 0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+li {
+  margin-bottom: 10px;
+}
+
+strong {
+  font-weight: bold;
+}
+
+/* src/components/Blogs.css */
+h1 {
+  color: #333;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+/* src/components/Contact.css */
+h1 {
+  color: #333;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+/* src/components/Home.css */
+h1 {
+  color: #333;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+/* src/components/Login.css */
+form {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #007bff;
   color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+button:hover {
+  background-color: #0056b3;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* src/components/MyAccount.css */
+h2 {
+  color: #333;
+}
+
+h3 {
+  color: #555;
+  margin-top: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* src/components/MyQueries.css */
+h3 {
+  color: #555;
+  margin-top: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+/* src/components/Navigation.css */
+nav ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+}
+
+nav ul li a:hover {
+  color: #007bff;
 }
