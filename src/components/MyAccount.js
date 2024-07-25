@@ -1,63 +1,62 @@
 // src/components/MyAccount.js
-
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout, raiseQuery } from '../redux/actions';
+import { useNavigate } from 'react-router-dom';
 
 const MyAccount = () => {
-  const isLoggedIn = useSelector(state => state.isLoggedIn);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const employeeCode = useSelector(state => state.employeeCode);
   const role = useSelector(state => state.role);
   const queries = useSelector(state => state.queries);
   const [query, setQuery] = useState('');
-  const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(logout());
-    return <Navigate to="/login" />;
+    navigate('/login');
   };
 
   const handleRaiseQuery = () => {
-    if (query.trim() === '') {
+    if (!query.trim()) {
       alert('Query cannot be empty.');
       return;
     }
-
-    const newQuery = { employeeCode, query };
-    dispatch(raiseQuery(newQuery));
+    dispatch(raiseQuery(employeeCode, query));
     setQuery('');
   };
 
-  if (!isLoggedIn) {
-    return <Navigate to="/login" />;
-  }
-
-  const filteredQueries = role === 'ADMIN' ? queries : queries.filter(q => q.employeeCode === employeeCode);
+  const handleProfile = () => {
+    navigate('/profile');
+  };
 
   return (
     <div>
       <h2>My Account</h2>
-      {role === 'MEMBER' && (
-        <div>
-          <h3>Raise a Query</h3>
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <button onClick={handleRaiseQuery}>Submit</button>
-        </div>
-      )}
-      <h3>Queries</h3>
-      <ul>
-        {filteredQueries.map((q, index) => (
-          <li key={index}>
-            {q.employeeCode}: {q.query}
-          </li>
-        ))}
-      </ul>
-      <button onClick={handleLogout}>Logout</button>
+      <p>Welcome, {employeeCode} ({role})</p>
+      
+      <div>
+        <h3>Raise a Query</h3>
+        <textarea value={query} onChange={(e) => setQuery(e.target.value)} />
+        <br />
+        <button onClick={handleRaiseQuery}>Submit Query</button>
+      </div>
+      <div>
+        <h3>Queries</h3>
+        {queries.length === 0 ? (
+          <p>No queries raised yet.</p>
+        ) : (
+          <ul>
+            {queries.map((q, index) => (
+              <li key={index}>
+                <strong>{q.employeeCode}:</strong> {q.query}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <button onClick={handleProfile}>Profile</button>      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };

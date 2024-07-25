@@ -1,3 +1,4 @@
+// src/components/Login.js
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -32,16 +33,11 @@ const Login = () => {
       return;
     }
 
-    const userRole = userRoles[employeeCode];
-    if (!userRole) {
-      alert('Role not defined for this employee code.');
-      return;
-    }
+    dispatch(login(employeeCode, userRoles[employeeCode]));
 
-    dispatch(login(employeeCode, userRole));
-    dispatch(loadQueries(JSON.parse(localStorage.getItem('queries') || '[]')));
-    localStorage.setItem('employeeCode', employeeCode);
-    localStorage.setItem('role', userRole);
+    const savedQueries = JSON.parse(localStorage.getItem('queries')) || [];
+    dispatch(loadQueries(savedQueries));
+
     navigate('/myaccount');
   };
 
@@ -51,25 +47,15 @@ const Login = () => {
       <form onSubmit={(e) => e.preventDefault()}>
         <label>
           Employee Code:
-          <input
-            type="text"
-            value={employeeCode}
-            onChange={(e) => setEmployeeCode(e.target.value)}
-          />
+          <input type="text" value={employeeCode} onChange={(e) => setEmployeeCode(e.target.value)} />
         </label>
         <br />
         <label>
           Password:
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </label>
         <br />
-        <button type="submit" onClick={handleLogin}>
-          Login
-        </button>
+        <button type="submit" onClick={handleLogin}>Login</button>
       </form>
     </div>
   );

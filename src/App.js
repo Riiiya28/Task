@@ -7,8 +7,9 @@ import Contact from './components/Contact';
 import Blogs from './components/Blogs';
 import Login from './components/Login';
 import MyAccount from './components/MyAccount';
+import Profile from './components/Profile';
 import Navigation from './components/Navigation';
-import { useSelector } from 'react-redux'; // Redux to manage login state
+import { useSelector } from 'react-redux';
 import './styles.css';
 
 const App = () => {
@@ -18,7 +19,6 @@ const App = () => {
     <Router>
       <div>
         <Navigation />
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -28,6 +28,10 @@ const App = () => {
           <Route
             path="/myaccount"
             element={isLoggedIn ? <MyAccount /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/profile"
+            element={isLoggedIn ? <Profile /> : <Navigate to="/login" />}
           />
         </Routes>
       </div>

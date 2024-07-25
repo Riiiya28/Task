@@ -1,12 +1,13 @@
 // src/redux/reducers.js
-
-import { LOGIN, LOGOUT, RAISE_QUERY, LOAD_QUERIES } from './types';
+import { LOGIN, LOGOUT, RAISE_QUERY, LOAD_QUERIES, UPDATE_PROFILE, LOAD_PROFILE } from './types';
 
 const initialState = {
   isLoggedIn: false,
   employeeCode: null,
   role: null,
   queries: [],
+  profiles: JSON.parse(localStorage.getItem('profiles')) || {},
+  profile: {},
 };
 
 const authReducer = (state = initialState, action) => {
@@ -17,6 +18,7 @@ const authReducer = (state = initialState, action) => {
         isLoggedIn: true,
         employeeCode: action.payload.employeeCode,
         role: action.payload.role,
+        profile: state.profiles[action.payload.employeeCode] || {},
       };
     case LOGOUT:
       return {
@@ -24,10 +26,14 @@ const authReducer = (state = initialState, action) => {
         isLoggedIn: false,
         employeeCode: null,
         role: null,
-        queries: [],
+        profile: {},
       };
     case RAISE_QUERY:
-      const updatedQueries = [...state.queries, action.payload];
+      const newQuery = {
+        employeeCode: action.payload.employeeCode,
+        query: action.payload.query,
+      };
+      const updatedQueries = [...state.queries, newQuery];
       localStorage.setItem('queries', JSON.stringify(updatedQueries));
       return {
         ...state,
@@ -37,6 +43,23 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         queries: action.payload,
+      };
+    case UPDATE_PROFILE:
+      const updatedProfiles = {
+        ...state.profiles,
+        [action.payload.employeeCode]: action.payload,
+      };
+      localStorage.setItem('profiles', JSON.stringify(updatedProfiles));
+      return {
+        ...state,
+        profiles: updatedProfiles,
+        profile: action.payload,
+      };
+    case LOAD_PROFILE:
+      const loadedProfiles = JSON.parse(localStorage.getItem('profiles')) || {};
+      return {
+        ...state,
+        profile: loadedProfiles[action.payload] || {},
       };
     default:
       return state;
